@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <TextClock
+            android:id="@+id/textClock"
+            android:format12Hour="HH:mm"
+            android:format24Hour="HH:mm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#33FFFFFF"
+            android:textSize="34sp" />
+
+        <TextClock
+            android:id="@+id/textClock2"
+            android:padding="10dp"
+            android:format12Hour="dd/MM/yyyy"
+            android:format24Hour="dd/MM/yyyy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#33FFFFFF"
+            android:textSize="12sp" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null" />
+
+        <LinearLayout
+
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_margin="6dp"
+                android:background="@color/black"
+                android:fontFamily="sans-serif"
+                android:text="PHONE"
+                android:textColor="#33FFFFFF"
+                app:rippleColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_message"
+                android:layout_margin="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:text="MESSAGE"
+                android:background="@color/black"
+                android:fontFamily="sans-serif"
+                android:textColor="#33FFFFFF"
+                app:rippleColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_browser"
+                android:layout_margin="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:text="BROWSER"
+                android:background="@color/black"
+                android:textColor="#33FFFFFF"
+                app:rippleColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
