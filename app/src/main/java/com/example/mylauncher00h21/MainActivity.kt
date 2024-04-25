@@ -2,23 +2,25 @@ package com.example.mylauncher00h21
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
+import android.content.res.Resources
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.ArrayAdapter
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
+import androidx.viewpager.widget.ViewPager
 
 class MainActivity : AppCompatActivity() {
 
     private val appNames: ArrayList<String> = ArrayList<String>()
     private val packageNames: ArrayList<String> = ArrayList<String>()
-    private lateinit var listView: ListView
+
+    private lateinit var pagerAdapter: PagePagerAdapter
+    private lateinit var viewPager: ViewPager
 
     @Deprecated("Deprecated in Java")
     @SuppressLint("MissingSuperCall")
@@ -29,7 +31,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         enableEdgeToEdge()
+
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         setContentView(R.layout.activity_main)
+
 
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -43,26 +51,9 @@ class MainActivity : AppCompatActivity() {
             packageNames.add(app.activityInfo.packageName.toString())
         }
 
-        listView = findViewById<ListView>(R.id.list)
-        val arr: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            R.layout.row,
-            appNames
-        )
-        listView.setAdapter(arr)
-        listView.setOnItemClickListener{ _, _, position, _ ->
-            val launchIntent = pm.getLaunchIntentForPackage(packageNames[position])
-            launchIntent?.let { startActivity(it) }
-        }
-        
-        listView.setOnItemLongClickListener { parent, view, position, id ->
-            val launchIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            launchIntent.addCategory(Intent.CATEGORY_DEFAULT)
-            val packageName = packageNames[position]
-            launchIntent.setData(Uri.parse("package:$packageName"))
-            startActivity(launchIntent)
-            true
-        }
+        pagerAdapter = PagePagerAdapter(supportFragmentManager)
+        viewPager = findViewById(R.id.pager)
+        viewPager.adapter = pagerAdapter
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
