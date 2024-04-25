@@ -2,24 +2,22 @@ package com.example.mylauncher00h21
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager.widget.ViewPager
+import com.example.mylauncher00h21.components.homepager.HomePagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
     private val appNames: ArrayList<String> = ArrayList<String>()
     private val packageNames: ArrayList<String> = ArrayList<String>()
 
-    private lateinit var pagerAdapter: PagePagerAdapter
+    private lateinit var pagerAdapter: HomePagerAdapter
     private lateinit var viewPager: ViewPager
 
     @Deprecated("Deprecated in Java")
@@ -32,12 +30,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         enableEdgeToEdge()
 
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         setContentView(R.layout.activity_main)
-
 
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -47,11 +45,11 @@ class MainActivity : AppCompatActivity() {
         for (app in pkgAppsList) {
             val str = app.loadLabel(pm)
             // appNames.add((appNames.size + 1).toString() + ". " + str.toString());
-            appNames.add(str.toString());
+            appNames.add(str.toString())
             packageNames.add(app.activityInfo.packageName.toString())
         }
 
-        pagerAdapter = PagePagerAdapter(supportFragmentManager)
+        pagerAdapter = HomePagerAdapter(supportFragmentManager)
         viewPager = findViewById(R.id.pager)
         viewPager.adapter = pagerAdapter
 
