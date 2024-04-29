@@ -1,16 +1,26 @@
 package com.example.mylauncher00h21
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.mylauncher00h21.components.homepager.HomePagerAdapter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,8 +60,46 @@ class MainActivity : AppCompatActivity() {
         }
 
         pagerAdapter = HomePagerAdapter(supportFragmentManager)
-        viewPager = findViewById(R.id.pager)
+        viewPager = findViewById<ViewPager>(R.id.pager)
         viewPager.adapter = pagerAdapter
+
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position != 0) return;
+                val textView = this@MainActivity.findViewById<TextView>(R.id.tvBranding)
+                if (textView != null) {
+                    textView.setTextColor(Color.WHITE);
+                    val colorAnim = ObjectAnimator.ofInt(textView, "textColor",
+                        Color.WHITE, Color.BLUE);
+                    colorAnim.setEvaluator(ArgbEvaluator());
+                    colorAnim.startDelay = 500;
+                    colorAnim.start();
+
+                    colorAnim.doOnEnd {
+                        Log.d("end", "test")
+                    }
+
+
+                    val aniSlide: Animation =
+                        AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
+
+                    textView.clearAnimation();
+                    textView.startAnimation(aniSlide);
+
+                }
+            }
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+        })
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
