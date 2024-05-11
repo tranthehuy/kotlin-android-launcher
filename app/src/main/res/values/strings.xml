@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyLauncher00h21</string>
+    <string name="app_branding">swipe</string>
+    <string name="bgDescription">background</string>
 </resources>

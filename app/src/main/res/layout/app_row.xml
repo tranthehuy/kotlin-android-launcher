@@ -8,11 +8,12 @@
     <TextView
         android:id="@+id/app_name"
         android:padding="5dp"
+        android:fontFamily="@font/robotoslab"
         android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#99FFFFFF"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textAlignment="center"

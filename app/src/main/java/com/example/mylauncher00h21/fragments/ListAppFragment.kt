@@ -52,14 +52,14 @@ class ListAppFragment : Fragment() {
             val launchIntent = pm.getLaunchIntentForPackage(packageNames[position])
             launchIntent?.let { startActivity(it) }
         }
-
-        listView.setOnItemLongClickListener { parent, view, position, id ->
-            val launchIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            launchIntent.addCategory(Intent.CATEGORY_DEFAULT)
-            val packageName = packageNames[position]
-            launchIntent.setData(Uri.parse("package:$packageName"))
-            startActivity(launchIntent)
-            true
-        }
+//
+//        listView.setOnItemLongClickListener { parent, view, position, id ->
+//            val launchIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//            launchIntent.addCategory(Intent.CATEGORY_DEFAULT)
+//            val packageName = packageNames[position]
+//            launchIntent.setData(Uri.parse("package:$packageName"))
+//            startActivity(launchIntent)
+//            true
+//        }
     }
 }

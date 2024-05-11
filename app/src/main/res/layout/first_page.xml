@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    >
+    <TextView
+        android:id="@+id/tvBorder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border"
+        />
     <TextView
         android:id="@+id/tvBranding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="D1"
+        android:text="@string/app_branding"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="96sp"
+        android:textColor="#FFFFFF"
+        android:textSize="64sp"
         tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="2dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        tools:layout_editor_absoluteY="2dp"
+        android:fontFamily="@font/robotoslab"
+        />
+</RelativeLayout>
