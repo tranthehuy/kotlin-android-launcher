@@ -2,9 +2,7 @@ package com.example.mylauncher00h21.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -70,9 +68,11 @@ class ListAppFragment : Fragment() {
 
                         val searchApp = editText.text.toString().lowercase()
                         reinitAppListData(view, mainIntent, searchApp)
+                        editText.text.clear()
 
                         true // Return true to consume the event
                     }
+
                     else -> false // Return false to let the system handle other keys
                 }
             } else {
@@ -85,7 +85,7 @@ class ListAppFragment : Fragment() {
 
                 val searchApp = editText.text.toString().lowercase()
                 reinitAppListData(view, mainIntent, searchApp)
-
+                editText.text.clear()
                 true // Return true to consume the event
             } else {
 
@@ -100,7 +100,8 @@ class ListAppFragment : Fragment() {
     }
 
     private fun hideSoftKeyboard() {
-        val inputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val currentFocusView = activity?.currentFocus
         currentFocusView?.let {
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
