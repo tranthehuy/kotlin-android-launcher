@@ -1,6 +1,7 @@
 package com.example.mylauncher00h21.components.applist
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter

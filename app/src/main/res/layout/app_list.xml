@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/search_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+
+        android:inputType="text"
+        android:maxLines="1"
+        android:lines="1"
+
+        android:fontFamily="@font/robotoslab"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+
+        />
+
 
     <LinearLayout
+
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
         android:orientation="vertical">
 
         <ListView
@@ -18,6 +41,58 @@
             android:layout_weight="1"
             android:divider="@null"
             tools:ignore="MissingConstraints" />
+
+
+
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+
+        android:padding="10dp"
+
+
+        >
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+
+
+            android:background="@drawable/search_icon"
+            android:fontFamily="@font/robotoslab"
+            android:textColor="#FFFFFF"
+
+            android:textSize="20sp"
+
+
+            />
+
+        <Button
+            android:id="@+id/setting_button"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/system_icon"
+
+            android:layout_marginLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+
+            android:fontFamily="@font/robotoslab"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+
+
+
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!--
      Required only if your app needs to access images or photos
      that other apps created.
@@ -19,11 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLauncher00h21">
-
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".SettingActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.MyLauncher00h21"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MyLauncher00h21">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
