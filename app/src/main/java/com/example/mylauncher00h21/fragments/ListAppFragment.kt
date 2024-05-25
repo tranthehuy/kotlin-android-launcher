@@ -32,6 +32,8 @@ class ListAppFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
 
@@ -40,6 +42,7 @@ class ListAppFragment : Fragment() {
         initSearchListener(view, mainIntent);
         initSettingsListener(view);
     }
+
 
     private fun initSettingsListener(view: View) {
         val settingButton = view.findViewById<Button>(R.id.setting_button)
@@ -52,11 +55,12 @@ class ListAppFragment : Fragment() {
     private fun initSearchListener(view: View, mainIntent: Intent) {
         val settingButton = view.findViewById<Button>(R.id.search_button)
         val editText = view.findViewById<EditText>(R.id.search_edit);
+
         settingButton.setOnClickListener { _ ->
+            initAppListData(view, mainIntent)
             editText.showSoftInputOnFocus = true;
             editText.text.clear() // Clear the text
             editText.requestFocus() // Set focus to the EditText
-
         }
 
         editText.setOnKeyListener { _, keyCode, event ->
@@ -123,6 +127,11 @@ class ListAppFragment : Fragment() {
                 packageNames.add(app.activityInfo.packageName.toString())
             }
         }
+
+        if (filterName.isNotEmpty()) {
+            appNames.add("Clear");
+        }
+
         listView = view.findViewById<ListView>(R.id.list)
         val adapter = activity?.let { AppListAdapter(it, appNames) }
         if (activity == null) return
@@ -130,8 +139,12 @@ class ListAppFragment : Fragment() {
         listView.setAdapter(adapter)
 
         listView.setOnItemClickListener { _, _, position, _ ->
-            val launchIntent = pm.getLaunchIntentForPackage(packageNames[position])
-            launchIntent?.let { startActivity(it) }
+            if (appNames[position] != "Clear") {
+                val launchIntent = pm.getLaunchIntentForPackage(packageNames[position])
+                launchIntent?.let { startActivity(it) }
+            }
+
+            initAppListData(view, mainIntent);
         }
 
 //        listView.setOnItemLongClickListener { parent, view, position, id ->
@@ -144,4 +157,5 @@ class ListAppFragment : Fragment() {
 //        }
 
     }
+
 }

@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green"
     tools:context=".MainActivity">
 
     <ImageView
@@ -14,7 +15,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
-        android:src="@drawable/wallpaper"
+
         android:contentDescription="@string/bgDescription" />
 
     <LinearLayout

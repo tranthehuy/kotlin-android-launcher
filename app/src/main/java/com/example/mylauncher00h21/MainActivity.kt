@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-
                 val imageView = this@MainActivity.findViewById<ImageView>(R.id.imageView)
                 val textView = this@MainActivity.findViewById<TextView>(R.id.tvBranding)
 
@@ -98,6 +97,8 @@ class MainActivity : AppCompatActivity() {
 //                        textView2.startAnimation(scale);
 
                     }
+
+
 
 //                    textView.setTextColor(Color.WHITE);
 //                    val colorAnim = ObjectAnimator.ofInt(textView, "textColor",

@@ -19,8 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLauncher00h21">
         <activity
-            android:windowSoftInputMode="adjustResize"
             android:name=".SettingActivity"
+            android:theme="@style/Theme.MyLauncher00h21"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
