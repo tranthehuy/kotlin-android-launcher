@@ -3,4 +3,5 @@
     <string name="app_branding">swipe</string>
     <string name="bgDescription">background</string>
     <string name="custom">Custom</string>
+    <string name="add">Add</string>
 </resources>
