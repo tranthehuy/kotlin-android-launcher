@@ -1,81 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
     tools:context=".MainActivity">
-
     <ImageView
-        android:id="@+id/imageView"
-
+        android:id="@+id/bgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
-
         android:contentDescription="@string/bgDescription" />
 
-    <LinearLayout
-        android:id="@+id/home_layout"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
+        android:layout_alignParentTop="true"
+        />
 
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/widgetsHostLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:layout_alignParentTop="true">
 
-
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
+        <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:divider="@null"
-            />
-
-
-<!--        <LinearLayout-->
-
-<!--            android:gravity="center"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_call"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="64dp"-->
-<!--                android:layout_margin="6dp"-->
-<!--                android:background="@color/black"-->
-<!--                android:fontFamily="sans-serif"-->
-<!--                android:text="PHONE"-->
-<!--                android:textColor="#FF00FFFF"-->
-<!--                app:rippleColor="@color/white" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_message"-->
-<!--                android:layout_margin="6dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="64dp"-->
-<!--                android:text="MESSAGE"-->
-<!--                android:background="@color/black"-->
-<!--                android:fontFamily="sans-serif"-->
-<!--                android:textColor="#FF00FFFF"-->
-<!--                app:rippleColor="@color/black" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_browser"-->
-<!--                android:layout_margin="6dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="64dp"-->
-<!--                android:text="BROWSER"-->
-<!--                android:background="@color/black"-->
-<!--                android:textColor="#FF00FFFF"-->
-<!--                app:rippleColor="@color/black" />-->
-<!--        </LinearLayout>-->
-
+            android:layout_height="wrap_content"
+            android:text="@string/custom" />
     </LinearLayout>
 </RelativeLayout>
