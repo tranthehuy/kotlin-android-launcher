@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         if (showIcon) {
             paper.visibility = VISIBLE
             iconList.visibility = INVISIBLE
+            onChangeEditMode(false)
         } else {
             paper.visibility = INVISIBLE
             iconList.visibility = VISIBLE
@@ -56,13 +57,8 @@ class MainActivity : AppCompatActivity() {
                 shouldAdd = true
             }
 
-            if (shouldAdd) {
-                val newId = widgetsManager.createWidget(data)
-                val widgets = getWidgetIds()
-                widgets.add(newId)
-                saveWidgetIds(widgets)
-                isEditing = false
-                renderWidgets()
+            if (shouldAdd && (data != null)) {
+                onCreateWidget(data)
             }
         }
     }
@@ -119,12 +115,33 @@ class MainActivity : AppCompatActivity() {
         Preferences.savePreferences(this, "widgets", widgetArray)
     }
 
-    private fun removeWidgetAndSave(index: Int): MutableList<Int> {
-        isEditing = false
+    private fun removeWidgetAndSave(index: Int) {
         val widgets = getWidgetIds()
         widgets.removeAt(index)
         saveWidgetIds(widgets)
-        return widgets
+    }
+
+    private fun onChangeEditMode(mode: Boolean) {
+        isEditing = mode
+        renderWidgets()
+    }
+
+    private fun onCreateWidget(data: Intent) {
+        val newId = widgetsManager.createWidget(data)
+        val widgets = getWidgetIds()
+        widgets.add(newId)
+        saveWidgetIds(widgets)
+        onChangeEditMode(false)
+    }
+
+    private fun onTouchAddButton() {
+        val pickIntent = widgetsManager.getWidgetIntent()
+        startActivityForResult(pickIntent, widgetsManager.REQUEST_PICK_APPWIDGET)
+    }
+
+    private fun onTouchRemoveButton(index: Int) {
+        removeWidgetAndSave(index)
+        onChangeEditMode(false)
     }
 
     private fun renderWidgets () {
@@ -132,11 +149,9 @@ class MainActivity : AppCompatActivity() {
         if (isEditing) {
             widgetsManager.renderEditWidgets(widgets) { index: Int ->
                 if (index == -1) {
-                    val pickIntent = widgetsManager.getWidgetIntent()
-                    startActivityForResult(pickIntent, widgetsManager.REQUEST_PICK_APPWIDGET)
+                    onTouchAddButton()
                 } else {
-                    val newList = removeWidgetAndSave(index)
-                    widgetsManager.renderViewWidgets(newList)
+                    onTouchRemoveButton(index)
                 }
             }
         } else {
@@ -152,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         val customBtn = findViewById<Button>(R.id.btnCustom)
         customBtn.setOnClickListener { _ ->
             isEditing = !isEditing
-            renderWidgets()
+            onChangeEditMode(isEditing)
         }
     }
 }
