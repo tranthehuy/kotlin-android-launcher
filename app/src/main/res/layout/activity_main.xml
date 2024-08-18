@@ -67,15 +67,37 @@
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
-        <Button
+        <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnCustom"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:background="@color/transparent"
-            android:fontFamily="@font/robotoslab"
-            android:text="@string/custom"
-            />
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnCustom"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:background="@color/transparent"
+                android:fontFamily="@font/robotoslab"
+                android:text="@string/custom"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSettings"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:background="@color/transparent"
+                android:fontFamily="@font/robotoslab"
+                android:text="@string/settings"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

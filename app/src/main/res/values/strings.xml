@@ -5,4 +5,5 @@
     <string name="custom">Custom</string>
     <string name="add">Add</string>
     <string name="remove">Remove</string>
+    <string name="settings">Settings</string>
 </resources>
