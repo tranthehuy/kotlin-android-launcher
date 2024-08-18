@@ -104,11 +104,11 @@ class SettingActivity : AppCompatActivity() {
             builder.show()
         }
 
-        val btnHomePagePosition = findViewById<Button>(R.id.btnHomePagePosition)
-        btnHomePagePosition.setOnClickListener { _ ->
-            val options = arrayOf("First", "Last")
+        val btnMaxIcons = findViewById<Button>(R.id.btnMaxIcons)
+        btnMaxIcons.setOnClickListener { _ ->
+            val options = arrayOf("10", "20", "30")
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Choose Homepage Position")
+            builder.setTitle("Choose Max Icon Each Page")
             builder.setItems(options) { dialog, which ->
                 val selectedOption = options[which]
                 savePreferences(this.applicationContext, "homepage", selectedOption);

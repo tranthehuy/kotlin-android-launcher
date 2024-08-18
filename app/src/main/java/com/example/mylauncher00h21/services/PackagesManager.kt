@@ -15,7 +15,7 @@ class PackagesManager {
             "com.google.android.apps.messaging",
             "com.android.camera2"
         )
-        private const val pageLength = 10
+        var pageLength = 10
         var pageCount = 1
         val packages = ArrayList<Package>()
         private var packageManager: android.content.pm.PackageManager? = null;
@@ -67,15 +67,16 @@ class PackagesManager {
 
         private fun calculatePageCount(): Int {
             val factor = (packages.size / pageLength)
+
             return if (packages.size % pageLength == 0) factor else factor+1
         }
 
         data class PaginationRecord(val startIndex: Int, val endIndex: Int)
         fun getPagination(pageIndex: Int): PaginationRecord {
-            val start = pageIndex * 10;
-            val max = (pageIndex + 1) * 10;
-            val end = if (max > packages.size) packages.size else max
-            return PaginationRecord(start, end)
+            val start = pageIndex * pageLength;
+            val max = (pageIndex + 1) * pageLength - 1;
+            val end = if (max >= packages.size) packages.size -1 else max
+            return PaginationRecord(start, end + 1)
         }
     }
 }

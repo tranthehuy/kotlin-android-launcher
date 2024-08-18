@@ -83,13 +83,13 @@
             />
 
         <Button
-            android:id="@+id/btnHomePagePosition"
+            android:id="@+id/btnMaxIcons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:background="@drawable/border"
             android:padding="10dp"
-            android:text="Set HomePage Position"
+            android:text="Set Max Icons Each Page"
 
             android:layout_marginTop="10dp"
             android:fontFamily="@font/robotoslab"

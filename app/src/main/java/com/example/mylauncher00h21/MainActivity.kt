@@ -18,6 +18,7 @@ import com.example.mylauncher00h21.adapters.IconPagerAdapter
 import com.example.mylauncher00h21.services.PackagesManager
 import com.example.mylauncher00h21.services.Preferences
 import com.example.mylauncher00h21.services.WidgetsManager
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     private var showIcon = true
@@ -99,11 +100,11 @@ class MainActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_main)
 
+        initSettings()
         initPackageManager()
-        initViewPager()
         initWidgetManager()
         initBottomBar()
-        initSettings()
+        initViewPager()
     }
 
     private fun initSettings() {
@@ -121,6 +122,16 @@ class MainActivity : AppCompatActivity() {
                 layout.setImageDrawable(drawable)
             } finally {
             }
+        }
+
+        val homepage = Preferences.loadPreferences(this.applicationContext, "homepage");
+        homepage?.let {
+            try {
+                val maxIcons = homepage.toInt()
+                if (maxIcons > 0) {
+                    PackagesManager.pageLength = maxIcons
+                }
+            } catch (_: Exception) {}
         }
     }
 
