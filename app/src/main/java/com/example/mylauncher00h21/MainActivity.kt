@@ -2,12 +2,14 @@ package com.example.mylauncher00h21
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -101,6 +103,25 @@ class MainActivity : AppCompatActivity() {
         initViewPager()
         initWidgetManager()
         initBottomBar()
+        initSettings()
+    }
+
+    private fun initSettings() {
+        val btnSettings = findViewById<Button>(R.id.btnSettings)
+        btnSettings.setOnClickListener { _ ->
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        val background = Preferences.loadPreferences(this.applicationContext, "wallpaper");
+        background?.let {
+            try {
+                val drawable = Drawable.createFromPath(background)
+                val layout = findViewById<ImageView>(R.id.bgView)
+                layout.setImageDrawable(drawable)
+            } finally {
+            }
+        }
     }
 
     private fun initBottomBar() {
