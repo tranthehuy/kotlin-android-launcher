@@ -73,7 +73,7 @@
 
             android:background="@drawable/border"
             android:padding="10dp"
-            android:text="Set Choose Mode"
+            android:text="Set Theme Mode"
 
             android:layout_marginTop="10dp"
             android:fontFamily="@font/robotoslab"
