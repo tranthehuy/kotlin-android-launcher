@@ -14,13 +14,30 @@
         android:layout_alignParentTop="true"
         android:contentDescription="@string/bgDescription" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <LinearLayout
+        android:id="@+id/wrapperPaper"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:layout_alignParentTop="true"
-        />
+        android:layout_alignParentTop="true">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            />
+
+        <LinearLayout
+            android:id="@+id/bottomBarLayout"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:visibility="invisible"
@@ -30,7 +47,6 @@
         android:orientation="vertical"
         tools:context=".MainActivity"
         android:layout_alignParentTop="true">
-
         <LinearLayout
             android:paddingTop="50dp"
             android:paddingLeft="20dp"
@@ -39,7 +55,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
-
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +64,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

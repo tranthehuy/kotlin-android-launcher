@@ -3,10 +3,11 @@ package com.example.mylauncher00h21
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         showIcon = !showIcon
-        val paper = findViewById<ViewPager>(R.id.pager)
+        val paper = findViewById<LinearLayout>(R.id.wrapperPaper)
         val iconList = findViewById<LinearLayout>(R.id.wrapperLayout)
         if (showIcon) {
             paper.visibility = VISIBLE
@@ -99,6 +100,25 @@ class MainActivity : AppCompatActivity() {
         initPackageManager()
         initViewPager()
         initWidgetManager()
+        initBottomBar()
+    }
+
+    private fun initBottomBar() {
+        val bar = findViewById<LinearLayout>(R.id.bottomBarLayout)
+        val apps = PackagesManager.getRecentApps()
+        for (i in 0 until apps.size) {
+            val app = apps[i]
+            val bottomIcon = ImageButton(this)
+            bottomIcon.background = app.icon
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.setMargins(10, 0, 10, 0)
+            bottomIcon.setOnClickListener{_ ->
+                PackagesManager.startAppByName(this, app.name)
+            }
+            bar.addView(bottomIcon, layoutParams)
+        }
     }
 
     private fun getWidgetIds(): MutableList<Int> {

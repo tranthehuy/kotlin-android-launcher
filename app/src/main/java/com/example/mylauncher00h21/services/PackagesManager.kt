@@ -4,11 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 
 data class Package(val name: String, val id: String, val icon: Drawable)
 
 class PackagesManager {
     companion object {
+        val DEFAULT_APPS = arrayListOf(
+            "com.google.android.dialer",
+            "com.android.chrome",
+            "com.google.android.apps.messaging",
+            "com.android.camera2"
+        )
         private const val pageLength = 10
         var pageCount = 1
         val packages = ArrayList<Package>()
@@ -19,6 +26,7 @@ class PackagesManager {
             packages.clear()
             for (app in pm.queryIntentActivities(mainIntent, 0)) {
                 val str = app.loadLabel(pm).toString();
+                Log.d("id", app.activityInfo.packageName.toString())
                 packages.add(Package(
                     str,
                     app.activityInfo.packageName.toString(),
@@ -27,6 +35,22 @@ class PackagesManager {
             }
 
             pageCount = calculatePageCount()
+        }
+
+        fun getAppId(id: String): Package? {
+            return packages.find { p -> p.id == id }
+        }
+
+        fun getRecentApps(): ArrayList<Package> {
+            val results = ArrayList<Package>()
+            for (i in 0..3) {
+                val idApp = DEFAULT_APPS[i]
+                val app = PackagesManager.getAppId(idApp)
+                if (app != null) {
+                    results.add(app)
+                }
+            }
+            return results
         }
 
         fun startAppByName(context: Context, name: String) {

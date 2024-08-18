@@ -21,7 +21,7 @@ class PackageListFragment(private val pageIndex: Int): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val gridView: GridView = view.findViewById<GridView>(R.id.gridViewApps)
+        val gridView: GridView = view.findViewById(R.id.gridViewApps)
         val items = PackagesManager.packages
 
         val pagination = PackagesManager.getPagination(pageIndex)

@@ -89,6 +89,8 @@ class WidgetsManager(private val context: Context, private val widgetsLayout: Li
         val appWidgetInfo = appWidgetManager!!.getAppWidgetInfo(appWidgetId)
         val hostView = appWidgetHost!!.createView(context.applicationContext, appWidgetId, appWidgetInfo)
         hostView.setAppWidget(appWidgetId, appWidgetInfo)
+        hostView.minimumHeight = 300
+        hostView.minimumWidth = 300
         widgetsLayout.addView(hostView)
     }
 
