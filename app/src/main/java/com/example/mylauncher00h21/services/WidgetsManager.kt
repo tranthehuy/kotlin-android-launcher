@@ -20,21 +20,29 @@ class WidgetsManager(private val context: Context, private val widgetsLayout: Li
 
     fun renderViewWidgets(widgets: List<Int>) {
         widgetsLayout.removeAllViews()
-
         widgets.forEach { w -> addWidgetIntoView(w) }
 
     }
 
-    fun renderEditWidgets(widgets: List<Int>,onAdd: () -> Unit) {
+    private fun addRemoveWidgetButton(index: Int, onChange: (i: Int) -> Unit) {
+        val rmButton = Button(context)
+        rmButton.text = context.getString(R.string.remove)
+        rmButton.setOnClickListener { _ -> onChange(index) }
+        widgetsLayout.addView(rmButton)
+    }
+
+    fun renderEditWidgets(widgets: List<Int>, onChange: (i: Int) -> Unit) {
         widgetsLayout.removeAllViews()
-
-        widgets.forEach { w -> addWidgetIntoView(w) }
-
 
         val addButton = Button(context)
         addButton.text = context.getString(R.string.add)
-        addButton.setOnClickListener { _ -> onAdd() }
+        addButton.setOnClickListener { _ -> onChange(-1) }
         widgetsLayout.addView(addButton)
+
+        widgets.forEachIndexed { index, w ->
+            addWidgetIntoView(w)
+            addRemoveWidgetButton(index, onChange)
+        }
     }
 
      fun getWidgetIntent(): Intent {
@@ -66,8 +74,6 @@ class WidgetsManager(private val context: Context, private val widgetsLayout: Li
             intent.setComponent(appWidgetInfo.configure)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             return intent
-        } else {
-            createWidget(data)
         }
         return null
     }

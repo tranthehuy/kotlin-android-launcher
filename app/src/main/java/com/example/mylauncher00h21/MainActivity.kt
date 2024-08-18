@@ -3,6 +3,7 @@ package com.example.mylauncher00h21
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View.*
 import android.view.WindowManager
 import android.widget.Button
@@ -42,18 +43,25 @@ class MainActivity : AppCompatActivity() {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+        var shouldAdd = false
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == widgetsManager.REQUEST_PICK_APPWIDGET) {
-                val subIntent = widgetsManager.getSubWidgetIntent(data) ?: return
-                startActivityForResult(subIntent, widgetsManager.REQUEST_CREATE_APPWIDGET)
+                val subIntent = widgetsManager.getSubWidgetIntent(data)
+                if (subIntent != null) {
+                    startActivityForResult(subIntent, widgetsManager.REQUEST_CREATE_APPWIDGET)
+                } else {
+                    shouldAdd = true
+                }
             } else if (requestCode == widgetsManager.REQUEST_CREATE_APPWIDGET) {
+                shouldAdd = true
+            }
+
+            if (shouldAdd) {
                 val newId = widgetsManager.createWidget(data)
                 val widgets = getWidgetIds()
                 widgets.add(newId)
                 saveWidgetIds(widgets)
-
                 isEditing = false
-
                 renderWidgets()
             }
         }
@@ -100,30 +108,42 @@ class MainActivity : AppCompatActivity() {
     private fun getWidgetIds(): MutableList<Int> {
         val widgetPref = Preferences.loadPreferences(this, "widgets")
         var widgets = mutableListOf<Int>()
-        if (widgetPref != null) {
+        if (widgetPref?.length!! > 0) {
             widgets = widgetPref.split(";").map{it.toInt()}.toMutableList()
         }
-
         return widgets
-    }
-
-    private fun renderWidgets () {
-        val widgets = getWidgetIds()
-
-        if (isEditing) {
-            widgetsManager.renderEditWidgets(widgets) { ->
-                val pickIntent = widgetsManager.getWidgetIntent()
-                startActivityForResult(pickIntent, widgetsManager.REQUEST_PICK_APPWIDGET)
-            }
-        } else {
-            widgetsManager.renderViewWidgets(widgets)
-        }
     }
 
     private fun saveWidgetIds(widgets: MutableList<Int>) {
         val widgetArray = widgets.joinToString(";") { it.toString() }
         Preferences.savePreferences(this, "widgets", widgetArray)
     }
+
+    private fun removeWidgetAndSave(index: Int): MutableList<Int> {
+        isEditing = false
+        val widgets = getWidgetIds()
+        widgets.removeAt(index)
+        saveWidgetIds(widgets)
+        return widgets
+    }
+
+    private fun renderWidgets () {
+        val widgets = getWidgetIds()
+        if (isEditing) {
+            widgetsManager.renderEditWidgets(widgets) { index: Int ->
+                if (index == -1) {
+                    val pickIntent = widgetsManager.getWidgetIntent()
+                    startActivityForResult(pickIntent, widgetsManager.REQUEST_PICK_APPWIDGET)
+                } else {
+                    val newList = removeWidgetAndSave(index)
+                    widgetsManager.renderViewWidgets(newList)
+                }
+            }
+        } else {
+            widgetsManager.renderViewWidgets(widgets)
+        }
+    }
+
 
     private fun initWidgetManager() {
         widgetsLayout = findViewById(R.id.widgetHost)
