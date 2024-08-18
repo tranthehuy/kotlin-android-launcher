@@ -87,7 +87,7 @@ class WidgetsManager(private val context: Context, private val widgetsLayout: Li
 
     private fun addWidgetIntoView(appWidgetId: Int) {
         val appWidgetInfo = appWidgetManager!!.getAppWidgetInfo(appWidgetId)
-        val hostView = appWidgetHost!!.createView(context, appWidgetId, appWidgetInfo)
+        val hostView = appWidgetHost!!.createView(context.applicationContext, appWidgetId, appWidgetInfo)
         hostView.setAppWidget(appWidgetId, appWidgetInfo)
         widgetsLayout.addView(hostView)
     }
